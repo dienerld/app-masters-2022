@@ -12,7 +12,7 @@ Criar rota para receber um usuário que esteja cadastrando dispositivos para doa
 
 ### Rota
 
-> POST \*\*/donation
+> POST /donation
 
 - Dados via JSON
 
@@ -37,3 +37,5 @@ Criar rota para receber um usuário que esteja cadastrando dispositivos para doa
   ]
 }
 ```
+
+Link para testes: [app heroku](https://doar-computador.herokuapp.com/)
