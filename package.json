@@ -6,10 +6,13 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "run": "tsc && node dist/server.js"
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "tsc && node dist/server.js"
   },
   "dependencies": {
     "class-validator": "^0.13.2",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1"
   },
   "devDependencies": {
