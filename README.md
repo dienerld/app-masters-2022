@@ -12,6 +12,10 @@ Criar rota para receber um usuário que esteja cadastrando dispositivos para doa
 
 ### Rota
 
+> GET /api-docs
+
+- Documentação da API em swaggerUi
+
 > POST /donation
 
 - Dados via JSON
