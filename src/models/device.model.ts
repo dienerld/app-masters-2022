@@ -5,15 +5,15 @@ export type TDevice = {
     | 'Notebook'
     | 'Desktop'
     | 'Netbook'
-    | 'Monitor'
-    | 'Impressora'
+    | 'Screen'
+    | 'Printer'
     | 'Scanner';
   condition: 'working' | 'broken' | 'notWorking';
 };
 
 export class Device {
   @IsString()
-  @Matches(/^(Notebook|Desktop|Netbook|Monitor|Impressora|Scanner)$/i)
+  @Matches(/^(Notebook|Desktop|Netbook|Screen|Printer|Scanner)$/i)
   private type: string;
 
   @Matches(/^(working|broken|notWorking)$/i)
