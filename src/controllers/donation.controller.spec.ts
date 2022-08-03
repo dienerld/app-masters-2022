@@ -15,7 +15,7 @@ const makeUser = () => ({
   deviceCount: 2,
   devices: [
     { type: 'Desktop', condition: 'working' },
-    { type: 'Impressora', condition: 'broken' },
+    { type: 'Printer', condition: 'broken' },
   ],
 });
 describe('DonationController', () => {
