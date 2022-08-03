@@ -1,0 +1,139 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "API",
+    "description": "API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    },
+    {
+      "url": "https://doar-computador.herokuapp.com/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "root",
+      "description": "route /"
+    },
+    {
+      "name": "donation",
+      "description": "route /donation"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": ["root"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "alive": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/donation": {
+      "post": {
+        "tags": ["donation"],
+        "operationId": "PostDonation",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "zip": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "state": {
+                    "type": "string"
+                  },
+                  "complement": {
+                    "type": "string"
+                  },
+                  "streetAddress": {
+                    "type": "string"
+                  },
+                  "number": {
+                    "type": "number"
+                  },
+                  "neighborhood": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "deviceCount": {
+                    "type": "number"
+                  },
+                  "devices": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "desktop",
+                            "netbook",
+                            "screen",
+                            "scanner",
+                            "printer"
+                          ]
+                        },
+                        "condition": {
+                          "type": "string",
+                          "enum": ["broken", "working", "notWorking"]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
