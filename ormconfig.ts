@@ -1,12 +1,11 @@
 const isProdEnvironment = /Production/i.test(process.env.NODE_ENV);
 
-const isTest = () => {
+const setConfig = () => {
   if (isProdEnvironment) {
     console.log('Running in Production environment');
     return {
       entities: ['./dist/src/**/*.model.js'],
       migrations: ['./dist/src/database/migrations/*.js'],
-      migrationsRun: true,
     };
   }
 
@@ -37,7 +36,7 @@ const setConnection = () => {
 module.exports = {
   type: process.env.TYPEORM_DB_TYPE,
   ...setConnection(),
-  ...isTest(),
+  ...setConfig(),
   cli: {
     migrationsDir: './src/database/migrations',
     entitiesDir: './src/**/*.model.ts',
