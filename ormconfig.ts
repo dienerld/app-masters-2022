@@ -1,14 +1,22 @@
-const isTestEnvironment = process.env.NODE_ENV === 'Production';
+const isProdEnvironment = /Production/i.test(process.env.NODE_ENV);
 
 const isTest = () => {
-  if (isTestEnvironment) {
+  if (isProdEnvironment) {
+    console.log('Running in Production environment');
     return {
-      dropSchema: true,
-      logging: false,
+      entities: ['./dist/src/**/*.model.js'],
+      migrations: ['./dist/src/database/migrations/*.js'],
       migrationsRun: true,
     };
   }
-  return {};
+
+  console.log('Running in Development environment');
+  return {
+    dropSchema: true,
+    logging: true,
+    entities: ['./src/**/*.model.{js,ts}'],
+    migrations: ['./src/database/migrations/*.ts'],
+  };
 };
 const setConnection = () => {
   if (process.env.DATABASE_URL) {
@@ -30,8 +38,6 @@ module.exports = {
   type: process.env.TYPEORM_DB_TYPE,
   ...setConnection(),
   ...isTest(),
-  entities: ['./src/**/*.model.{js,ts}'],
-  migrations: ['./src/database/migrations/*.{js,ts}'],
   cli: {
     migrationsDir: './src/database/migrations',
     entitiesDir: './src/**/*.model.ts',
