@@ -6,6 +6,7 @@ const setConfig = () => {
     return {
       entities: ['./dist/src/**/*.model.js'],
       migrations: ['./dist/src/database/migrations/*.js'],
+      migrationsRun: true,
     };
   }
 
