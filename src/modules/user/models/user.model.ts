@@ -11,7 +11,7 @@ import { UserDto } from '../dtos/user.dto';
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn({ type: 'bigint' })
-    id: string;
+    id: number;
 
   @IsString()
   @IsNotEmpty()

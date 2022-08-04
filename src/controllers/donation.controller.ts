@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { UserRequestDto } from '../modules/user/dtos/userResquest.dto';
+import { UserRequestDto } from '../modules/user/dtos/userRequest.dto';
 import { CreateUserService } from '../modules/user/services/createUser.service';
 
 const routes = Router();
@@ -10,7 +10,11 @@ routes.post('/', async (req, res) => {
   const requestBody: UserRequestDto = req.body;
 
   const response = await service.execute(requestBody);
-  return res.status(201).json(response);
+  const cleanResponse = {
+    ...response,
+    devices: response.devices.map(({ user, ...device }) => device),
+  };
+  return res.status(201).json(cleanResponse);
 });
 
 export { routes as donationController };

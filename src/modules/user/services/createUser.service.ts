@@ -1,7 +1,8 @@
 import { validate } from 'class-validator';
 import { RequestCustomError } from '../../../errors/requestError';
 import { Device } from '../../device/models/device.model';
-import { UserRequestDto } from '../dtos/userResquest.dto';
+import { CreateDeviceService } from '../../device/services/createDevice.service';
+import { UserRequestDto } from '../dtos/userRequest.dto';
 import { User } from '../models/user.model';
 import { UserRepository } from '../repositories/implementations/user.repository';
 import { UserRepositoryInterface } from '../repositories/userRepository.interface';
@@ -13,8 +14,11 @@ function removeSpaces(str: string) {
 export class CreateUserService {
   private repository: UserRepositoryInterface;
 
+  private deviceService: CreateDeviceService;
+
   constructor() {
     this.repository = new UserRepository();
+    this.deviceService = new CreateDeviceService();
   }
 
   async execute({ devices: devicesDto, ...userDto }: UserRequestDto): Promise<User> {
@@ -42,13 +46,24 @@ export class CreateUserService {
       }
     });
 
+    const newUser = new User(userDto);
+    const errorsUser = await validate(newUser);
+    if (errorsUser.length > 0) {
+      throw new RequestCustomError({
+        statusCode: 400,
+        requiredFields: errorsUser.map((error) => error.property),
+        errorMessage: 'Todos os campos obrigatórios devem ser informados',
+      });
+    }
+    const userSaved = await this.repository.save(newUser);
+
     const devices = devicesDto.map(
-      (device) => new Device(device.type, device.condition),
+      (device) => new Device(device.type, device.condition, userSaved),
     );
 
     for await (const device of devices) {
-      const errors = await validate(device);
-      if (errors.length > 0) {
+      const errorsDevice = await validate(device);
+      if (errorsDevice.length > 0) {
         throw new RequestCustomError({
           statusCode: 400,
           errorMessage: `O equipamento ${device.type} está com o status invalido`,
@@ -56,20 +71,16 @@ export class CreateUserService {
       }
     }
 
-    const newUser = new User(userDto);
-
-    const errors = await validate(newUser);
-    if (errors.length > 0) {
+    try {
+      const devicesSaved = await this.deviceService.execute(devices);
+      userSaved.setDevices(devicesSaved);
+      return userSaved;
+    } catch (err) {
+      await this.repository.delete(userSaved.id);
       throw new RequestCustomError({
         statusCode: 400,
-        requiredFields: errors.map((error) => error.property),
-        errorMessage: 'Todos os campos obrigatórios devem ser informados',
+        errorMessage: 'Erro ao criar usuário e salvar os equipamentos',
       });
     }
-
-    newUser.setDevices(devices);
-    const userSaved = await this.repository.save(newUser);
-
-    return userSaved;
   }
 }
