@@ -19,6 +19,7 @@ const setConfig = () => {
   };
 };
 const setConnection = () => {
+  console.log('Database connection: ', process.env.DATABASE_URL);
   if (process.env.DATABASE_URL) {
     return {
       url: process.env.DATABASE_URL,
