@@ -1,4 +1,4 @@
-import { DeviceDTO } from '../../device/dtos/device.dto';
+import { DeviceDto } from '../../device/dtos/device.dto';
 
 export interface UserRequestDto{
     name: string;
@@ -10,7 +10,7 @@ export interface UserRequestDto{
   number: string;
   neighborhood: string;
   deviceCount: number;
-  devices: DeviceDTO[];
+  devices: DeviceDto[];
   email?: string;
   complement?: string;
 }
