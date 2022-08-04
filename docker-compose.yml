@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  database-appmasters:
+    image: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=appmasters
+      - POSTGRES_PASSWORD=appmasters
+      - POSTGRES_DB=appmasters
+    network_mode: host
