@@ -51,6 +51,18 @@
           "content": {
             "application/json": {
               "schema": {
+                "required": [
+                  "name",
+                  "zip",
+                  "city",
+                  "state",
+                  "streetAddress",
+                  "neighborhood",
+                  "number",
+                  "phone",
+                  "deviceCount",
+                  "devices"
+                ],
                 "type": "object",
                 "properties": {
                   "name": {
@@ -123,6 +135,30 @@
                   "properties": {
                     "success": {
                       "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "boolean" },
+                    "errorMessage": {
+                      "type": "string",
+                      "example": "Todos os campos obrigatórios devem ser informados"
+                    },
+                    "requiredFields": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": ["name", "zip", "city", "state"]
                     }
                   }
                 }
