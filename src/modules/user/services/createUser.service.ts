@@ -18,6 +18,17 @@ export class CreateUserService {
   }
 
   async execute({ devices: devicesDto, ...userDto }: UserRequestDto): Promise<User> {
+    const { email, phone } = userDto;
+    const userAlreadyExists = await this.repository.findByPhone(phone)
+    || await this.repository.findByEmail(email);
+
+    if (userAlreadyExists) {
+      throw new RequestCustomError({
+        errorMessage: 'User already exists',
+        statusCode: 400,
+      });
+    }
+
     if (devicesDto.length !== userDto.deviceCount) {
       throw new RequestCustomError({
         statusCode: 400,
@@ -48,8 +59,6 @@ export class CreateUserService {
     const newUser = new User(userDto);
 
     const errors = await validate(newUser);
-    console.log(errors);
-
     if (errors.length > 0) {
       throw new RequestCustomError({
         statusCode: 400,
