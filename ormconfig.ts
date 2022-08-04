@@ -45,4 +45,9 @@ module.exports = {
     entitiesDir: './src/**/*.model.ts',
   },
   ssl: true,
+  extra: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
 };
