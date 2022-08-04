@@ -7,8 +7,6 @@ import {
   IsPostalCode,
   IsString,
   MinLength,
-  validate,
-  ValidationError,
 } from 'class-validator';
 import { Device, TDevice } from './device.model';
 
@@ -66,6 +64,7 @@ export class User {
   private deviceCount: number;
 
   @IsOptional()
+  @IsPositive()
   private devices: Device[];
 
   constructor(user: TUser) {
