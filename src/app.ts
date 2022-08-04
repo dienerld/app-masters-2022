@@ -31,7 +31,6 @@ app.use((err, req, res, next) => {
   if (err instanceof RequestCustomError) {
     return res.status(err.statusCode).json({
       error: err.error,
-      statusCode: err.statusCode,
       errorMessage: err.errorMessage,
       requiredFields: err.requiredFields,
     });
