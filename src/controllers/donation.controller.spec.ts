@@ -1,6 +1,5 @@
 import request from 'supertest';
 import { app } from '../app';
-import { User } from '../models/user.model';
 
 const makeUser = () => ({
   name: 'Test User',
