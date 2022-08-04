@@ -44,7 +44,5 @@ module.exports = {
     migrationsDir: './src/database/migrations',
     entitiesDir: './src/**/*.model.ts',
   },
-  extra: {
-    ssl: true,
-  },
+  ssl: true,
 };
