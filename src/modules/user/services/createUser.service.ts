@@ -1,5 +1,6 @@
 import { validate } from 'class-validator';
 import { RequestCustomError } from '../../../errors/requestError';
+import { fixZip } from '../../../utils/fixZip';
 import { removeSpaces } from '../../../utils/removeSpaces';
 import { DeviceDto } from '../../device/dtos/device.dto';
 import { Device } from '../../device/models/device.model';
@@ -39,6 +40,8 @@ export class CreateUserService {
         userDto[key] = removeSpaces(userDto[key]);
       }
     });
+    userDto.zip = fixZip(userDto.zip);
+
     const userRequest = new User(userDto);
     const errorsUser = await validate(userRequest);
     if (errorsUser.length > 0) {
