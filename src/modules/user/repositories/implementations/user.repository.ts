@@ -38,10 +38,11 @@ export class UserRepository implements UserRepositoryInterface {
   }
 
   async update(id: number, user: User): Promise<User> {
-    throw new Error('Method not implemented.');
+    await this.repository.update(id, user);
+    return this.repository.findOneOrFail(id);
   }
 
   async delete(id: number): Promise<void> {
-    throw new Error('Method not implemented.');
+    await this.repository.delete(id);
   }
 }

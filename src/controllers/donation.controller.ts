@@ -14,7 +14,10 @@ routes.post('/', async (req, res) => {
     ...response,
     devices: response.devices.map(({ user, ...device }) => device),
   };
-  return res.status(201).json(cleanResponse);
+  return res.status(200).json({
+    success: true,
+    data: cleanResponse,
+  });
 });
 
 export { routes as donationController };

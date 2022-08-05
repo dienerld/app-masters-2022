@@ -1,12 +1,12 @@
 /* eslint-disable lines-between-class-members */
 export type customError = {
-  errorMessage: string;
+  errorMessage:string[];
   statusCode: number;
   requiredFields?: string[];
 };
 
 export class RequestCustomError {
-  errorMessage: string;
+  errorMessage: string[];
   requiredFields?: string[];
   error: boolean;
   statusCode: number;

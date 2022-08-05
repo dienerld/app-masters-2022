@@ -1,9 +1,9 @@
 import 'dotenv/config';
 import 'reflect-metadata';
-import './database';
 
 import cors from 'cors';
 import express from 'express';
+import database from './database';
 import 'express-async-errors';
 
 import { routes } from './routes';
@@ -21,7 +21,7 @@ const corsOptions: cors.CorsOptions = {
     }
   },
 };
-
+database.create();
 export const app = express();
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -37,6 +37,6 @@ app.use((err, req, res, next) => {
   }
   return res.status(500).json({
     error: true,
-    errorMessage: err.message,
+    errorMessage: [err.message],
   });
 });

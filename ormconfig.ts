@@ -7,14 +7,18 @@ const setConfig = () => {
       entities: ['./dist/src/**/*.model.js'],
       migrations: ['./dist/src/database/migrations/*.js'],
       migrationsRun: true,
+      ssl: true,
+      extra: {
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      },
     };
   }
 
   console.log('Running in Development environment');
   return {
-    dropSchema: true,
-    logging: true,
-    entities: ['./src/**/*.model.{js,ts}'],
+    entities: ['./src/**/*.model.ts'],
     migrations: ['./src/database/migrations/*.ts'],
   };
 };
@@ -44,10 +48,5 @@ module.exports = {
     migrationsDir: './src/database/migrations',
     entitiesDir: './src/**/*.model.ts',
   },
-  ssl: true,
-  extra: {
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  },
+
 };

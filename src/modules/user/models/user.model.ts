@@ -1,6 +1,6 @@
 import {
   IsEmail, IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber,
-  IsPositive, IsPostalCode, IsString, MinLength,
+  IsPostalCode, IsString, Min, MinLength,
 } from 'class-validator';
 import {
   Column, Entity, OneToMany, PrimaryGeneratedColumn,
@@ -10,61 +10,62 @@ import { UserDto } from '../dtos/user.dto';
 
 @Entity('users')
 export class User {
-  @PrimaryGeneratedColumn({ type: 'bigint' })
+  @PrimaryGeneratedColumn('increment')
     id: number;
 
   @IsString()
   @IsNotEmpty()
   @Column({ type: 'varchar', length: 50 })
-    name!: string;
+    name: string;
 
   @IsOptional()
-  @IsEmail()
+  @IsEmail({ message: 'Email inválido' })
   @Column({ type: 'varchar', length: 50, nullable: true })
     email?: string;
 
-  @IsPhoneNumber('BR')
+  @IsPhoneNumber('BR', { message: 'Telefone inválido' })
   @Column({ type: 'varchar', length: 20 })
-    phone!: string;
+    phone: string;
 
-  @IsPostalCode('BR')
+  @IsPostalCode('BR', { message: 'CEP inválido' })
   @Column({ type: 'varchar', length: 15 })
-    zip!: string;
+    zip: string;
 
   @IsString()
   @Column({ type: 'varchar', length: 30 })
-    city!: string;
+    city: string;
 
   @IsString()
-  @MinLength(2)
+  @MinLength(2, { message: 'O estado deve ter no mínimo 2 caracteres' })
   @Column({ type: 'varchar', length: 30 })
-    state!: string;
+    state: string;
 
   @IsString()
-  @MinLength(2)
+  @MinLength(1, { message: 'Ao menos 1 carácter deve ser informado' })
   @Column({ type: 'varchar', length: 50 })
-    streetAddress!: string;
+    streetAddress: string;
 
   @IsNumber()
+  @Min(0, { message: 'O número deve ser maior que 0' })
   @Column()
-    number!: number;
+    number: number;
 
   @IsOptional()
   @IsString()
-  @MinLength(2)
+  @MinLength(2, { message: 'O complemento deve ter no mínimo 2 caracteres' })
   @Column({ type: 'varchar', length: 50, nullable: true })
     complement?: string;
 
   @IsString()
+  @MinLength(1, { message: 'O bairro deve ter no mínimo 1 caracteres' })
   @Column({ type: 'varchar', length: 50 })
-    neighborhood!: string;
+    neighborhood: string;
 
   @IsNumber()
+  @Min(0, { message: 'O número deve ser maior que 0' })
   @Column()
     deviceCount: number;
 
-  @IsOptional()
-  @IsPositive()
   @OneToMany(() => Device, (device) => device.user)
     devices: Device[];
 

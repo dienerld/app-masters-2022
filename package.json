@@ -9,7 +9,8 @@
     "prebuild": "rm -rf ./dist",
     "build": "tsc",
     "start": "node dist/src/server.js",
-    "dev": "tsnd src/server.ts"
+    "dev": "tsnd src/server.ts",
+    "typeorm": "ts-node node_modules/typeorm/cli.js"
   },
   "dependencies": {
     "class-validator": "^0.13.2",

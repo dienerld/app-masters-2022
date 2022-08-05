@@ -1,5 +1,6 @@
-import request from 'supertest'
+import request from 'supertest';
 import { app } from './app';
+
 describe('Test Root Server', () => {
   it('should return 200', async () => {
     const response = await request(app).get('/');
@@ -8,6 +9,6 @@ describe('Test Root Server', () => {
 
   it('should alive true', async () => {
     const response = await request(app).get('/');
-    expect(response.body).toMatchObject({alive: true});
+    expect(response.body).toMatchObject({ alive: true });
   });
 });

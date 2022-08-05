@@ -7,7 +7,7 @@ import { User } from '../../user/models/user.model';
 
 @Entity('devices')
 export class Device {
-  @PrimaryGeneratedColumn({ type: 'bigint' })
+  @PrimaryGeneratedColumn('increment')
     id: number;
 
   @IsString()
