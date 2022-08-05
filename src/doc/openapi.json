@@ -66,37 +66,48 @@
                 "type": "object",
                 "properties": {
                   "name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "John Doe"
                   },
                   "email": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "john@doe.com"
                   },
                   "zip": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "12345678"
                   },
                   "city": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "São Paulo"
                   },
                   "state": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "SP"
                   },
                   "complement": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Apto 101"
                   },
                   "streetAddress": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Rua A"
                   },
                   "number": {
-                    "type": "number"
+                    "type": "number",
+                    "example": 123
                   },
                   "neighborhood": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "ABC"
                   },
                   "phone": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "11999999999"
                   },
                   "deviceCount": {
-                    "type": "number"
+                    "type": "number",
+                    "example": 1
                   },
                   "devices": {
                     "type": "array",
@@ -135,6 +146,69 @@
                   "properties": {
                     "success": {
                       "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "zip": {
+                          "type": "string"
+                        },
+                        "city": {
+                          "type": "string"
+                        },
+                        "state": {
+                          "type": "string"
+                        },
+                        "complement": {
+                          "type": "string"
+                        },
+                        "streetAddress": {
+                          "type": "string"
+                        },
+                        "number": {
+                          "type": "number"
+                        },
+                        "neighborhood": {
+                          "type": "string"
+                        },
+                        "phone": {
+                          "type": "string"
+                        },
+                        "deviceCount": {
+                          "type": "number"
+                        },
+                        "devices": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "desktop",
+                                  "netbook",
+                                  "screen",
+                                  "scanner",
+                                  "printer"
+                                ]
+                              },
+                              "condition": {
+                                "type": "string",
+                                "enum": ["broken", "working", "notWorking"]
+                              }
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -151,7 +225,9 @@
                     "error": { "type": "boolean" },
                     "errorMessage": {
                       "type": "string",
-                      "example": "Todos os campos obrigatórios devem ser informados"
+                      "example": [
+                        "Todos os campos obrigatórios devem ser informados"
+                      ]
                     },
                     "requiredFields": {
                       "type": "array",
@@ -159,6 +235,23 @@
                         "type": "string"
                       },
                       "example": ["name", "zip", "city", "state"]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "boolean" },
+                    "errorMessage": {
+                      "type": "string",
+                      "example": ["Erro ao salvar dados no banco de dados"]
                     }
                   }
                 }
