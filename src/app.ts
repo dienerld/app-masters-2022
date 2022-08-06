@@ -22,6 +22,7 @@ const corsOptions: cors.CorsOptions = {
   },
 };
 database.create();
+
 export const app = express();
 app.use(cors(corsOptions));
 app.use(express.json());

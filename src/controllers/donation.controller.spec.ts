@@ -31,11 +31,62 @@ describe('DonationController', () => {
   beforeEach(async () => {
     await database.clear();
   });
-  it('should return 200 OK', async () => {
-    request(app).get('/donation').expect(200);
+
+  it('should return 200 OK - With 0 donation', async () => {
+    const response = await request(app).get('/donation');
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('success', true);
+    expect(response.body).toHaveProperty('data');
+    expect(response.body).toMatchObject({
+      success: true,
+      data: {
+        total: 0,
+      },
+    });
   });
 
-  it('should saved', async () => {
+  it('should return 200 OK - With 1 donation', async () => {
+    const user = makeUser();
+
+    await request(app).post('/donation').send(user);
+    const response = await request(app).get('/donation');
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('success', true);
+    expect(response.body).toHaveProperty('data');
+    expect(response.body).toMatchObject({
+      success: true,
+      data: {
+        total: 1,
+      },
+    });
+  });
+
+  it('should return 200 OK - With 2 donation', async () => {
+    const user = makeUser();
+
+    await request(app).post('/donation').send(user);
+    user.email = undefined;
+    user.phone = '+5511999999999';
+    user.deviceCount = 1;
+    user.devices = [{ type: 'Desktop', condition: 'working' }];
+    await request(app).post('/donation')
+      .send(user);
+    const response = await request(app).get('/donation');
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('success', true);
+    expect(response.body).toHaveProperty('data');
+    expect(response.body).toMatchObject({
+      success: true,
+      data: {
+        total: 2,
+      },
+    });
+  });
+
+  it('should return 200 OK - Save Donation', async () => {
     const user = makeUser();
 
     const response = await request(app).post('/donation').send(user);
@@ -109,9 +160,7 @@ describe('DonationController', () => {
     const user = makeUser();
     user.devices[0].condition = 'Invalid Condition';
 
-    console.log(user);
     const response = await request(app).post('/donation').send(user);
-    console.log(response.body);
 
     expect(response.statusCode).toBe(400);
     expect(response.body).toHaveProperty('error', true);

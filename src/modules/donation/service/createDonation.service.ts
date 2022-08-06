@@ -24,7 +24,7 @@ export class CreateDonationService {
   async execute(
     { devices: devicesDto, ...userDto }: UserRequestDto,
   ): Promise<{donation: Donation, devices: Device[]}> {
-    if (devicesDto?.length === 0) {
+    if (!devicesDto) {
       throw new RequestCustomError({
         errorMessage: ['devices é obrigatório'],
         statusCode: 400,
@@ -56,8 +56,6 @@ export class CreateDonationService {
         devices: devicesSaved,
       };
     } catch (err) {
-      console.log(err);
-
       if (err instanceof RequestCustomError) {
         throw err;
       }
