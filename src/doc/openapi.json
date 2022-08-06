@@ -151,59 +151,71 @@
                       "type": "object",
                       "properties": {
                         "id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "email": {
-                          "type": "string"
-                        },
-                        "zip": {
-                          "type": "string"
-                        },
-                        "city": {
-                          "type": "string"
-                        },
-                        "state": {
-                          "type": "string"
-                        },
-                        "complement": {
-                          "type": "string"
-                        },
-                        "streetAddress": {
-                          "type": "string"
-                        },
-                        "number": {
                           "type": "number"
                         },
-                        "neighborhood": {
-                          "type": "string"
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2020-01-01T00:00:00.000Z"
                         },
-                        "phone": {
-                          "type": "string"
-                        },
-                        "deviceCount": {
-                          "type": "number"
-                        },
-                        "devices": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "enum": [
-                                  "desktop",
-                                  "netbook",
-                                  "screen",
-                                  "scanner",
-                                  "printer"
-                                ]
-                              },
-                              "condition": {
-                                "type": "string",
-                                "enum": ["broken", "working", "notWorking"]
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            },
+                            "zip": {
+                              "type": "string"
+                            },
+                            "city": {
+                              "type": "string"
+                            },
+                            "state": {
+                              "type": "string"
+                            },
+                            "complement": {
+                              "type": "string"
+                            },
+                            "streetAddress": {
+                              "type": "string"
+                            },
+                            "number": {
+                              "type": "number"
+                            },
+                            "neighborhood": {
+                              "type": "string"
+                            },
+                            "phone": {
+                              "type": "string"
+                            },
+                            "deviceCount": {
+                              "type": "number"
+                            },
+                            "devices": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "type": "string",
+                                    "enum": [
+                                      "desktop",
+                                      "netbook",
+                                      "screen",
+                                      "scanner",
+                                      "printer"
+                                    ]
+                                  },
+                                  "condition": {
+                                    "type": "string",
+                                    "enum": ["broken", "working", "notWorking"]
+                                  }
+                                }
                               }
                             }
                           }
