@@ -3,9 +3,10 @@ import {
   IsPostalCode, IsString, Min, MinLength,
 } from 'class-validator';
 import {
-  Column, Entity, OneToMany, PrimaryGeneratedColumn,
+  Column, Entity, OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Device } from '../../device/models/device.model';
+import { Donation } from '../../donation/models/donation.model';
 import { UserDto } from '../dtos/user.dto';
 
 @Entity('users')
@@ -66,15 +67,10 @@ export class User {
   @Column()
     deviceCount: number;
 
-  @OneToMany(() => Device, (device) => device.user)
-    devices: Device[];
+  @OneToMany(() => Donation, (donation) => donation.user)
+    donations: Donation[];
 
   constructor(user: UserDto) {
     Object.assign(this, user);
-  }
-
-  public setDevices(devices: Device[]): void {
-    this.devices = devices;
-    this.deviceCount = devices.length;
   }
 }

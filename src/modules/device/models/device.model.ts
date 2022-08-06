@@ -3,7 +3,7 @@ import {
   Column, CreateDateColumn, Entity, ManyToOne,
   PrimaryGeneratedColumn, UpdateDateColumn,
 } from 'typeorm';
-import { User } from '../../user/models/user.model';
+import { Donation } from '../../donation/models/donation.model';
 
 @Entity('devices')
 export class Device {
@@ -25,12 +25,12 @@ export class Device {
   @UpdateDateColumn()
     updatedAt: Date;
 
-  @ManyToOne(() => User, (user) => user.devices, { })
-    user: User;
+  @ManyToOne(() => Donation, (donation) => donation.devices, { })
+    donation: Donation;
 
-  constructor(type: string, condition: string, user: User) {
+  constructor(type: string, condition: string, donation: Donation) {
     this.type = type;
     this.condition = condition;
-    this.user = user;
+    this.donation = donation;
   }
 }
