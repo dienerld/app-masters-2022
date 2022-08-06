@@ -56,6 +56,11 @@ export class CreateDonationService {
         devices: devicesSaved,
       };
     } catch (err) {
+      console.log(err);
+
+      if (err instanceof RequestCustomError) {
+        throw err;
+      }
       throw new RequestCustomError({
         statusCode: 400,
         errorMessage: ['Erro ao criar usuário e salvar os equipamentos'],

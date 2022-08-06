@@ -14,55 +14,62 @@ export class User {
   @PrimaryGeneratedColumn('increment')
     id: number;
 
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'name deve ser uma string' })
+  @IsNotEmpty({ message: 'name é obrigatório' })
   @Column({ type: 'varchar', length: 50 })
     name: string;
 
-  @IsOptional()
-  @IsEmail({ message: 'Email inválido' })
+  @IsOptional({ message: 'email é opcional' })
+  @IsEmail({}, { message: 'Email inválido' })
   @Column({ type: 'varchar', length: 50, nullable: true })
     email?: string;
 
   @IsPhoneNumber('BR', { message: 'Telefone inválido' })
+  @IsNotEmpty({ message: 'phone é obrigatório' })
   @Column({ type: 'varchar', length: 20 })
     phone: string;
 
   @IsPostalCode('BR', { message: 'CEP inválido' })
+  @IsNotEmpty({ message: 'zip é obrigatório' })
   @Column({ type: 'varchar', length: 15 })
     zip: string;
 
-  @IsString()
+  @IsNotEmpty({ message: 'city é obrigatório' })
+  @IsString({ message: 'city deve ser uma string' })
   @Column({ type: 'varchar', length: 30 })
     city: string;
 
-  @IsString()
+  @IsNotEmpty({ message: 'state é obrigatório' })
+  @IsString({ message: 'state deve ser uma string' })
   @MinLength(2, { message: 'O estado deve ter no mínimo 2 caracteres' })
   @Column({ type: 'varchar', length: 30 })
     state: string;
 
-  @IsString()
+  @IsNotEmpty({ message: 'streetAddress é obrigatório' })
+  @IsString({ message: 'streetAddress deve ser uma string' })
   @MinLength(1, { message: 'Ao menos 1 carácter deve ser informado' })
   @Column({ type: 'varchar', length: 50 })
     streetAddress: string;
 
-  @IsNumber()
+  @IsNumber({}, { message: 'deviceCount deve ser um número' })
   @Min(0, { message: 'O número deve ser maior que 0' })
   @Column()
     number: number;
 
-  @IsOptional()
-  @IsString()
+  @IsOptional({ message: 'devices é opcional' })
+  @IsNotEmpty({ message: 'complement inválido' })
+  @IsString({ message: 'complement deve ser uma string' })
   @MinLength(2, { message: 'O complemento deve ter no mínimo 2 caracteres' })
   @Column({ type: 'varchar', length: 50, nullable: true })
     complement?: string;
 
-  @IsString()
+  @IsNotEmpty({ message: 'neighborhood é obrigatório' })
+  @IsString({ message: 'neighborhood deve ser uma string' })
   @MinLength(1, { message: 'O bairro deve ter no mínimo 1 caracteres' })
   @Column({ type: 'varchar', length: 50 })
     neighborhood: string;
 
-  @IsNumber()
+  @IsNumber({}, { message: 'deviceCount deve ser um número' })
   @Min(0, { message: 'O número deve ser maior que 0' })
   @Column()
     deviceCount: number;

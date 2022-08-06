@@ -52,14 +52,6 @@ export class CreateUserService {
       user = new User(userDto);
     }
 
-    try {
-      const userSaved = await this.repository.save(user);
-      return userSaved;
-    } catch (err) {
-      throw new RequestCustomError({
-        statusCode: 400,
-        errorMessage: ['Erro ao criar usuário e salvar os equipamentos'],
-      });
-    }
+    return this.repository.save(user);
   }
 }
