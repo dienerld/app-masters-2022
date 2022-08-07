@@ -47,6 +47,12 @@ export class CreateUserService {
         requiredFields: required,
         errorMessage: arrMessages,
       });
+    } else if (!regexPhone.test(userDto.phone)) {
+      throw new RequestCustomError({
+        statusCode: 400,
+        errorMessage: ['phone inválido'],
+        requiredFields: ['phone'],
+      });
     }
 
     let user = await this.repository.findByPhone(userDto.phone)
