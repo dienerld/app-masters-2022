@@ -16,12 +16,9 @@ export class DonationRepository implements DonationRepositoryInterface {
         .addSelect('devices')
         .innerJoin('donations.user', 'user')
         .addSelect('user.id')
+        .addSelect('user.name')
         .addSelect('user.phone')
         .orderBy('donations.createdAt', 'DESC')
-        .groupBy('donations.id')
-        .addGroupBy('devices.id')
-        .addGroupBy('user.id')
-        .addGroupBy('donations.userId')
         .getManyAndCount();
       return { total, donations };
     } catch (err) {
