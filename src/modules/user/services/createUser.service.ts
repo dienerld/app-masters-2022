@@ -37,7 +37,7 @@ export class CreateUserService {
 
       const required = errorsUser.map((error) => error.property);
 
-      if (userDto.phone.length > 2 && !regexPhone.test(userDto.phone)) {
+      if (userDto.phone.length > 0 && !regexPhone.test(userDto.phone)) {
         arrMessages.push('phone inválido');
         required.push('phone');
       }

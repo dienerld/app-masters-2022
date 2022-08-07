@@ -51,7 +51,7 @@ export class User {
     streetAddress: string;
 
   @IsNumber({}, { message: 'deviceCount deve ser um número' })
-  @Min(0, { message: 'O número deve ser maior que 0' })
+  @Min(0, { message: 'O número deve ser maior ou igual a 0' })
   @Column()
     number: number;
 
