@@ -1,6 +1,7 @@
 import { validate } from 'class-validator';
 import { RequestCustomError } from '../../../errors/requestError';
 import { fixZip } from '../../../utils/fixZip';
+import { regexPhone } from '../../../utils/regexPhone';
 import { removeSpaces } from '../../../utils/removeSpaces';
 import { UserDto } from '../dtos/user.dto';
 import { User } from '../models/user.model';
@@ -21,6 +22,14 @@ export class CreateUserService {
       }
     });
     userDto.zip = fixZip(userDto.zip);
+
+    if (!regexPhone.test(userDto.phone)) {
+      throw new RequestCustomError({
+        errorMessage: ['Telefone inválido'],
+        statusCode: 400,
+        requiredFields: ['phone'],
+      });
+    }
 
     const userRequest = new User(userDto);
     const errorsUser = await validate(userRequest);

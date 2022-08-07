@@ -1,5 +1,5 @@
 import {
-  IsEmail, IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber,
+  IsEmail, IsMobilePhone, IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber,
   IsPostalCode, IsString, Min, MinLength,
 } from 'class-validator';
 import {
@@ -24,7 +24,6 @@ export class User {
   @Column({ type: 'varchar', length: 50, nullable: true })
     email?: string;
 
-  @IsPhoneNumber('BR', { message: 'Telefone inválido' })
   @IsNotEmpty({ message: 'phone é obrigatório' })
   @Column({ type: 'varchar', length: 20 })
     phone: string;
